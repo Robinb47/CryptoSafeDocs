@@ -24,11 +24,6 @@ const App = () => {
             console.error('Error uploading PDF:', response.statusText);
           }
         })
-        .then((data) => {
-          if (data.ipfsHash) {
-            setIpfsHash(data.ipfsHash); // Setzen des IPFS-Hash im Zustand
-          }
-        })
         .catch((error) => {
           console.error('Error uploading PDF:', error);
         });
