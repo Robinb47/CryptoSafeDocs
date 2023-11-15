@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const App = () => {
   const [file, setFile] = useState(null);
-  const [ipfsHash, setIpfsHash] = useState(''); // Neuer Zustand für den IPFS-Hash
+  const [ipfsHash, setIpfsHash] = useState("Was"); // Neuer Zustand für den IPFS-Hash
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -11,22 +11,21 @@ const App = () => {
   const handleFileUpload = () => {
     if (file) {
       const formData = new FormData();
-      formData.append('pdfFile', file);
+      formData.append('pdf', file);
 
-      fetch('http://localhost:5040/upload', {
+      fetch('http://localhost:5050/upload', {
         method: 'POST',
         body: formData,
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json(); // Parsen der JSON-Antwort
-          } else {
-            console.error('Error uploading PDF:', response.statusText);
-          }
-        })
-        .catch((error) => {
-          console.error('Error uploading PDF:', error);
-        });
+      });
+
+      /* geht nicht
+      const data = response.json();
+
+      setIpfsHash("Hallo");
+
+      //setIpfsHash(data.ipfsLink);
+      setIpfsHash("Hallo");
+*/
     }
   };
 
@@ -34,7 +33,7 @@ const App = () => {
     <div>
       <input type="file" onChange={handleFileChange} accept=".pdf" />
       <button onClick={handleFileUpload}>Upload PDF</button>
-      {ipfsHash && <p>IPFS-Hash: {ipfsHash}</p>} {/* Zeige den IPFS-Hash an */}
+      <p>IPFS-Hash: {ipfsHash}</p>
     </div>
   );
 };
