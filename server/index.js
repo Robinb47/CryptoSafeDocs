@@ -8,9 +8,12 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const Moralis = require("moralis").default;
 const fs = require("fs");
+const cors = require('cors');
 
 const app = express();
 const port = 5050;
+
+app.use(cors());
 
 app.use(bodyParser.json());
 const upload = multer({ dest: "uploads/" });

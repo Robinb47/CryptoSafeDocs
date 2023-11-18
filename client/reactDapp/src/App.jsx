@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import logo from './assets/react.svg';
+import './App.css'
+import { Routes, Route } from "react-router-dom";
 
-const App = () => {
-  const [file, setFile] = useState(null);
-  const [ipfsHash, setIpfsHash] = useState("Was"); // Neuer Zustand für den IPFS-Hash
+import Login from './Login';
+import Dashboard from './Dashboard.jsx';
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
 
-  const handleFileUpload = () => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('pdf', file);
+import WalletAuth from './WalletAuth';
 
-      fetch('http://localhost:5050/upload', {
-        method: 'POST',
-        body: formData,
-      });
 
-      /* geht nicht
-      const data = response.json();
-
-      setIpfsHash("Hallo");
-
-      //setIpfsHash(data.ipfsLink);
-      setIpfsHash("Hallo");
+/* Test Area
+//import Ipfs from './Ipfs.jsx';
 */
-    }
-  };
+//import Ipfs from './Ipfs.js';
+//import IpfsUpload from './IpfsUpload.cjs';
+
+//import IpfsGpt from './IpfsGpt';
+//import Moralis from 'moralis';
+
+
+//import WalletAuth from './WalletAuth';
+
+
+function App() {
+  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} accept=".pdf" />
-      <button onClick={handleFileUpload}>Upload PDF</button>
-      <p>IPFS-Hash: {ipfsHash}</p>
-    </div>
-  );
-};
+    <>
+      <div>
+        <p></p>
+        <a href="https://react.dev" target="_blank">
+          <img src={logo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Crypto Documents</h1>
+      <div className="login">
+        <Routes>
+          <Route path ="/" element={<Login/>}></Route>
+          <Route path ="/dapp" element={<Dashboard/>}></Route>
+        </Routes>
+      </div>
+      <p className="read-the-docs">
+        2023 CryptoDocuments | Entwickelt von Robin
+      </p>
+    </>
+  )
+}
 
-export default App;
+export default App
