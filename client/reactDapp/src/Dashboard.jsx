@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { useCurrentUser } from "./hooks/useCurrentUser";
-
 import WalletAuth from "./WalletAuth";
+import PdfUpload from './PdfUpload';
+import PdfUpload2 from "./PdfUpload2";
+import AccessList from "./AccessList";
+import PdfWithListUpload from "./PdfWithListUpload";
+
+import Home from './Home';
+import CreateKey from "./CreateKey";
+
+//Tester für Smart Contract Anbindung
+import ScIntegration from "./SCIntegration";
+import KeyRegistry from "./KeyRegistry";
 
 //import ReactDOM from "react-dom";
 //import PdfUpload from "./PdfUpload";
@@ -76,15 +86,25 @@ function Dashboard() {
     const authorizedBody = 
     <>
         You successfully signed in with Passage.
-        <WalletAuth/>
+        <Home />
     </>
+
+    /* war vorher so 
+       const authorizedBody = 
+    <>
+        You successfully signed in with Passage.
+        <Home />
+        <PdfWithListUpload/> 
+        <WalletAuth/>     
+    </>
+    
+    */ 
 
     const unauthorizedBody = 
     <>
         You have not logged in and cannot view the dashboard.
         <br></br>
     </>
-
 
     /*
     const {isLoading, isAuthorized, username} = useCurrentUser();
@@ -115,6 +135,6 @@ function Dashboard() {
         </div>
         </>
     )
-};
+}
 
 export default Dashboard;
