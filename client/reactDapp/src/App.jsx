@@ -11,6 +11,7 @@ import Dashboard from './Dashboard.jsx';
 
 import WalletAuth from './WalletAuth';
 
+import PdfUpload from './PdfUpload';
 
 /* Test Area
 //import Ipfs from './Ipfs.jsx';

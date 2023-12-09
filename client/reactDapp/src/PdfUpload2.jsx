@@ -1,74 +1,48 @@
-//alte App.jsx die funktioniert
-//Versuchter Datenempfang scheitert
+import React, { useEffect, useState } from 'react';
+
+function PdfUpload2() {
+    //useState definieren
+    const [file, setFile] = useState(null);
+    const [ipfsHash, setIpfsHash] = useState(''); // Neuer Zustand für den IPFS-Hash
 
 
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-//import logo from './assets/logo-frontpage.png';
-import './App.css'
-import { Routes, Route } from "react-router-dom";
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+      };
 
-//import Login from './Login'
-//import Dashboard from './Dashboard'
-
-//import PdfUpload from './PdfUpload';
-
-
-const App = () => {
-
-
-
-  const [file, setFile] = useState(null);
-  const [responseData, setResponseData] = useState(null); // Neuer Zustand für den IPFS-Hash
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
-  const handleFileUpload = async () => {
-    if (file) {
-      const formData = new FormData();
-      formData.append('pdf', file);
-
-      try {
-        const response = await fetch('http://localhost:5050/upload', {
-          method: 'Post',
-          body: formData,
-        });
-
-        if (!response.ok) {
-          throw new Error('HTTP-Fehler! Status: ${response.status}');
+    const handleFileUpload = () => {
+        if (file) {
+          const formData = new FormData();
+          formData.append('pdf', file);
+        
+          fetch('http://localhost:5050/upload', {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.text();
+                setIpfsHash(response.text());
+              } else {
+                console.error('Error uploading PDF:', response.statusText);
+                throw new Error('Upload failed');
+              }
+            })
+            .then((data => 
+                setIpfsHash(data)))
+            .catch((error) => {
+              console.error('Error uploading PDF:', error);
+            });
         }
-
-        const responseData = await response.json();
-        console.log('Antwort an Server:', responseData);
-
-        setResponseData(responseData);
-
-
-
-      } catch (error) {
-        console.error('Fehler beim Hochladen der Datei:', error)
-      }
-    }
-  };
-      /* geht nicht
-      const data = response.json();
-
-      setIpfsHash("Hallo");
-
-      //setIpfsHash(data.ipfsLink);
-      setIpfsHash("Hallo");
-*/
+      };
 
       return (
         <div>
           <input type="file" onChange={handleFileChange} accept=".pdf" />
           <button onClick={handleFileUpload}>Upload PDF</button>
-          <p>IPFS-Hash: {responseData}</p>
+          <p>IPFS-Hash: {ipfsHash}</p>
         </div>
       );
-    };
+};
 
-export default App;
+export default PdfUpload2;

@@ -31,7 +31,7 @@ contract DecryptionContract {
         bytes memory encryptedContent
     ) public onlyAuthorized returns (bytes memory) {
         // Hier implementierst du die Entschlüsselung mit dem privaten Schlüssel
-        //GIB DEN VERSCHLÜSSELTEN WERT VON DER WALLET ZURÜCK
+        // GIB DEN VERSCHLÜSSELTEN WERT VON DER WALLET ZURÜCK
         // Gib den entschlüsselten Inhalt zurück
     }
 }
