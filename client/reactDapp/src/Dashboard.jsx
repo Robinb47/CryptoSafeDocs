@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import { useCurrentUser } from "./hooks/useCurrentUser";
-import WalletAuth from "./WalletAuth";
-import PdfUpload from './PdfUpload';
-import PdfUpload2 from "./PdfUpload2";
-import AccessList from "./AccessList";
-import PdfWithListUpload from "./PdfWithListUpload";
+
+//import AccessList from "./AccessList";
+//import PdfWithListUpload from "./PdfWithListUpload";
 
 import Home from './Home';
-import CreateKey from "./CreateKey";
 
-//Tester für Smart Contract Anbindung
-import ScIntegration from "./SCIntegration";
-import KeyRegistry from "./KeyRegistry";
-
-//import ReactDOM from "react-dom";
-//import PdfUpload from "./PdfUpload";
 /*
 function Dashboard() {
   const { isLoading, isAuthorized, username } = useCurrentUser();

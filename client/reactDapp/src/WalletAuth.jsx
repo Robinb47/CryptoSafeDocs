@@ -6,7 +6,7 @@ import { PassageUser } from '@passageidentity/passage-elements/passage-user';
 
 //import detectEthereumProvider from '@metamask/detect-provider';
 //import Ipfs from './Ipfs.jsx';
-//import Home from './Home'
+import Home from './Home'
 
 function WalletAuth () {
     

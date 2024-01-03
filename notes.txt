@@ -1,0 +1,6 @@
+KeyManager.jsx 
+keymanager.js 
+=> erfolgreiche Schlüsselgenerierung und Datentransfer
+
+UploadWithKey => Anfrage an SC für publicKey, senden Pdf an Backend für Upload an IPFS und Verschlüsselung mit public Key
+index_FrontedKeyGenerator => Empfang der Pdf mit Verschlüsselung über

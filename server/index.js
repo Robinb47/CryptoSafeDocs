@@ -1,8 +1,3 @@
-/*
-const Moralis = require("moralis").default;
-const fs = require("fs");
-*/
-
 const express = require('express');
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -10,22 +5,19 @@ const Moralis = require("moralis").default;
 const fs = require("fs");
 const cors = require('cors');
 
-
-const encrypt = require('./encrypt');
-
 //hier kommt die Erweiterung für die Verschlüsselung
-const secp256k1 = require('secp256k1');
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 
 //Generate an RSA key pair
-//const key = new NodeRSA({b: 512});
-
+const key = new NodeRSA({b: 512});
 
 const app = express();
-const port = 5050;
+const port = 5052;
 
 app.use(cors());
+//Versuch Cors als Sicherheitsmechanismus zu verwenden
+//http://localhost:5173 als einzige mögliche Domain
 
 app.use(bodyParser.json());
 const upload = multer({ dest: "uploads/" });
@@ -41,8 +33,8 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
         const content = fs.readFileSync(filePath, { encoding: "base64" });
 
         //hochgeladene Liste lesen
-        const accessList = req.body.accessList;
-        console.log("That is your accessList: ", accessList);
+        const recipientKey = req.body.recipientKey;
+        console.log("Das ist der erhaltene Key von der Blockchain: ", recipientKey);
 
         const uploadArray = [
             {
@@ -50,55 +42,30 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
                 content: content
         }]
 
-        // Auf IPFS hochladen
         const response = await Moralis.EvmApi.ipfs.uploadFolder({
             abi: uploadArray,
         });
 
-        // IPFS-Link auf der Konsole ausgeben
-        console.log("IPFS-Link:", response.result);
+         // IPFS-Link auf der Konsole ausgeben
+         console.log("IPFS-Link:", response.result);
 
-        // Den IPFS-Link an das Frontend zurückschicken
-        //res.json({ ipfsLink: response.result });
-        //console.log("IpfsLink an Server gesendet: ", response.result);
-        let ipfsPath = response.result[0].path.toString();
-        console.log("gefilterter Ipfs-Link: ", ipfsPath);
-        
-        //versuch ipfs hash mit public key über secp256k1 zu verschlüsseln
-        console.log("erster Access Wallet: ", accessList);
-        
-        /*
-        const encryptedIpfsLink = crypto.publicEncrypt(
-            {
-                key: accessList,
-                padding: crypto.constants.RSA_PKCS1_PADDING,
-            },
-            Buffer.from(ipfsPath, 'utf8')
-        );
-        */
-        //const publicKey = accessList;
-        //const publicKeyString = `-----BEGIN PUBLIC KEY-----\n${publicKey}\n-----END PUBLIC KEY-----`;
-        /*
-        const publicKeyString = `-----BEGIN PUBLIC KEY-----
-        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAisnU7y/fahyzshbCMxAD
-        ojynQkFwDawOfZ6mfGPcf6IJLX4v7A6aduQmMNCBMSG8cmfJ3b+9Y1pg58C0hLgD
-        0ixzgmpz1gEenbdu5U9Xt/X+qs6LI7oFDFoojBgn4RqjQNZ5V1XQwNfLtL6Wf9tf
-        WCmHFOrhOC2tVWLyVc5CME5RsxV0D/CHhDLhGNJexNqU618w2TT3N1qoSQJY/+CE
-        SoCa0cCsSgS4lr1WScUl+UF4faf8birODYjIAweF78Xrs/rdg6pBrDqN4ZV+em2M
-        upbs4kxN/JMtT+cdUJKFnL2M9ksbJDqWOy59n2wE+fbf8VHOMZ9xFYaaodUSbFvi
-        bwIDAQAB
-        -----END PUBLIC KEY-----`;
-        console.log(publicKeyString);
-        const key = new NodeRSA();
-        key.importKey(publicKeyString, 'pkcs8-public-pem');
-        const encryptedLink = key.encrypt(ipfsPath, 'base64');
-        console.log('encrypted Ipfs Link: ', encryptedLink);
-        //console.log("verschlüsselte Nachricht: ", encryptedIpfsLink.toString('base64'));
-        */
+         let ipfsPath = response.result[0].path;
+         console.log("gefilterter Ipfs-Link: ", ipfsPath);
 
-        res.send(ipfsPath);
-        
-        //key.importKey(privateKey, 'pkcs8-private-pem');
+         //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
+        //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
+        //const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
+
+
+        key.importKey(recipientKey, 'public');
+       // key.importKey(privateKeyFile, 'private');
+
+        const encryptedMessage = key.encrypt(ipfsPath, 'base64');
+        console.log('encrypted: ', encryptedMessage);
+
+        res.send(encryptedMessage);
+        //const decryptedMessage = key.decrypt(encryptedMessage, 'utf-8');
+        //console.log("Das ist die entschlüsselte Nachricht: ", decryptedMessage);
 
     } catch (error) {
         console.error("Fehler:", error);
@@ -106,7 +73,36 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
     }
 });
 
+      //const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
+        //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
+
+       // key.importKey(publicKeyFile, 'public');
+       // key.importKey(privateKeyFile, 'private');
+        //const decryptedDocument = key.decrypt(encryptedDocument, 'base64');
+        //console.log('Encrypted IPFS-Link: ', decryptedDocument);
+
+//TO-DO: Implementierung eines POST-Request
+//Erhalte eine Zeichenfolge = String verschlüsselter IPFS-Hash
+
+app.use(express.text());
+app.post("/download", async (req, res) => {
+    try {
+        const encryptedDocument = req.body;
+        console.log("Das ist der erhaltene verschlüsselte IPFS-Link:", encryptedDocument);
+
+        const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
+        const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
+        key.importKey(privateKeyFile, 'private');
+        //key.importKey(publicKeyFile, 'public');
+        const decryptedDocument = key.decrypt(encryptedDocument, 'utf-8');
+        console.log('Decrypted IPFS-Link: ', decryptedDocument);
+
+    } catch (error) {
+        console.error("Fehler", error);
+        res.status(500).json({ error: "Interner Serverfehler" });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Der Server läuft auf Port ${port}`);
 });
-

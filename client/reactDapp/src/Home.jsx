@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-import KeyRegistry from './KeyRegistry';
-//import PdfWithListUpload from './PdfWithListUpload';
+//AB HIER NEUER VERSUCH FÜR NEUE SMART CONTRACT
+//import KeyManager from './KeyManager';
+import KeyAndLinkManager from './KeyAndLinkManager';
 
-import PdfWithRecipient from './PdfWithRecipient';
+import Uploader from './Uploader';
+import Downloader from './Downloader';
 
 
 function Home() {
@@ -35,10 +37,11 @@ function Home() {
     return (
         <div>
             {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Create Key</button>}
-            {showKeyRegistry && <KeyRegistry />}
-            {!showUploader && <button onClick={openUploader}>Open Uploader</button>}
-            {showUploader && <PdfWithRecipient/>}
-            <button>Download File</button>
+            {showKeyRegistry && <KeyAndLinkManager />}
+            {!showUploader && <button onClick={openUploader}>open Uploader</button>}
+            {showUploader && <Uploader/>}
+            {!showDownloader && <button onClick={openDownloader}>open Downloader</button>}
+            {showDownloader && <Downloader/>}
         </div>
     )
 }

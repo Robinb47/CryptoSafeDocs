@@ -11,7 +11,6 @@ import Dashboard from './Dashboard.jsx';
 
 import WalletAuth from './WalletAuth';
 
-import PdfUpload from './PdfUpload';
 
 /* Test Area
 //import Ipfs from './Ipfs.jsx';
@@ -23,8 +22,18 @@ import PdfUpload from './PdfUpload';
 //import Moralis from 'moralis';
 
 
-//import WalletAuth from './WalletAuth';
 
+
+//import KeySafer from './KeySafer';
+//import UploadWithKey from './UploadWithKey';
+
+import Decrypter from './Decrypter';
+
+//neuer Versuch
+//import WebAuthnComponent from './WebAuthn';
+//war nicht erfolgreich
+
+//neuster Versuch für WebAuthn Login
 
 function App() {
   const [count, setCount] = useState(0)
@@ -42,7 +51,8 @@ function App() {
         <Routes>
           <Route path ="/" element={<Login/>}></Route>
           <Route path ="/dapp" element={<Dashboard/>}></Route>
-        </Routes>
+        </Routes>      
+  
       </div>
       <p className="read-the-docs">
         2023 CryptoDocuments | Entwickelt von Robin
@@ -51,4 +61,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
