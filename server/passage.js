@@ -14,6 +14,7 @@ app.use(cors(corsOption));
 
 let passageConfig = {
     appID: 'swni5tN408lF8CQAWVwxli4d',
+    authStrategy: "HEADER",
 };
 
 

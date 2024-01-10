@@ -135,14 +135,16 @@ function KeyManager() {
 
     return (
         <div>
-            <button onClick={connectWalletHandler}>Click to see logged Crypto-account</button>
+            <button onClick={connectWalletHandler}>show crypto-account</button>
             <p>Address: {defaultAccount}</p>
+           
+            <br/>
 
-            <button onClick={getKeyFromBlockchain}>Check Key from Blockchain</button>
+            <button onClick={getKeyFromBlockchain}>Check key from Blockchain</button>
             <p>Public-Key on Blockchain:</p>
             <textarea rows={5} cols={50} value={contractKey} readOnly></textarea> <br/>
-
-            <button onClick={generateKeys}>click to generate your keys</button> <br />
+            <br/>
+            <button onClick={generateKeys}>generate keys</button> <br />
             <p>private key saves localy as private.pem with public.pem, which gets load on Blockchain</p> <br/>
             <p>Generated publicKey: {generatedKey}</p>
             <button onClick={sendGeneratedKeyToBlockchain}> Click to safe key on Blockchain</button>

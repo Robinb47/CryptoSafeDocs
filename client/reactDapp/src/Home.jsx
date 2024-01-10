@@ -38,6 +38,8 @@ function Home() {
         <div>
             {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Create Key</button>}
             {showKeyRegistry && <KeyAndLinkManager />}
+            <br/>
+            <br/>
             {!showUploader && <button onClick={openUploader}>open Uploader</button>}
             {showUploader && <Uploader/>}
             {!showDownloader && <button onClick={openDownloader}>open Downloader</button>}

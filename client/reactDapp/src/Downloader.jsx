@@ -85,6 +85,19 @@ function Downloader() {
             });
     }
 
+    //PassageAuthTest
+    const handlePassage = async () => {
+
+        fetch('http://localhost:5052/authenticatedRoute', {
+            method: 'POST',
+            body: "hallo",
+            headers: {
+                'Content-Type': 'text/plain',
+            }
+        });
+
+    }
+
     return (
         <div>
             <button onClick={connectWalletHandler}>Click to see logged crypto-account</button>
@@ -95,6 +108,8 @@ function Downloader() {
 
             <button onClick={handleDecryption}>click to decrypt ipfs-Link</button>
             <p>decrypted IPFS-Link: {decryptedDocument}</p>
+
+            <button onClick={handlePassage}>Try Passage SDK</button>
         </div>
     );
     
