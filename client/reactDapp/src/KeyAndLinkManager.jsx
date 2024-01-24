@@ -22,7 +22,7 @@ function KeyManager() {
 
 
     //KeyManager Contractaddress
-    let contractAddress = "0xA744F84115B10a8C1bdcB82aA7A39Fa7F326F831";
+    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
 
 
     const connectWalletHandler = () => {
@@ -107,34 +107,11 @@ function KeyManager() {
     const sendGeneratedKeyToBlockchain = () => {
         contract.setKey(generatedKey);
     }
-
-
-     /** KANN GELÖSCHT WERDEN
-      * POST-Request to Server with publicKey
-      */
-     const sendPublicKeyToServer = async () => {
-        const formData = new FormData();
-        formData.append('publicKey', contractKey);
-        
-        try {
-            const response = await fetch('http://localhost:5050/keymanager', {
-            method: 'POST',
-            body: formData,
-        });
-    
-        if(!response.ok) {
-            throw new Error('Fehler beim Senden der Daten');
-        }
-    
-        console.log('Daten erfolgreich an den Server gesendet'); 
-        } catch(error) {
-            console.error('Fehler: ', error.message);
-         }
-    };
    
-
     return (
-        <div>
+        <>
+        <div style={{border: '2px solid black'}}>
+            <h2>Key Generator</h2>
             <button onClick={connectWalletHandler}>show crypto-account</button>
             <p>Address: {defaultAccount}</p>
            
@@ -148,7 +125,14 @@ function KeyManager() {
             <p>private key saves localy as private.pem with public.pem, which gets load on Blockchain</p> <br/>
             <p>Generated publicKey: {generatedKey}</p>
             <button onClick={sendGeneratedKeyToBlockchain}> Click to safe key on Blockchain</button>
-        </div>
+            <br/>
+            <br/>
+            </div>
+            <div >
+            <h3>Go to Uploader or Downloader</h3>
+            </div>
+    
+        </>
     );
 }
 

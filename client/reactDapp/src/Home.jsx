@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-//AB HIER NEUER VERSUCH FÜR NEUE SMART CONTRACT
-//import KeyManager from './KeyManager';
+
 import KeyAndLinkManager from './KeyAndLinkManager';
 
 import Uploader from './Uploader';
 import Downloader from './Downloader';
+
+import './App.css';
 
 
 function Home() {
@@ -36,13 +37,12 @@ function Home() {
 
     return (
         <div>
-            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Create Key</button>}
+            <br/>
+            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Keycreater</button>}
             {showKeyRegistry && <KeyAndLinkManager />}
-            <br/>
-            <br/>
-            {!showUploader && <button onClick={openUploader}>open Uploader</button>}
+            {!showUploader && <button onClick={openUploader}>Upload</button>}
             {showUploader && <Uploader/>}
-            {!showDownloader && <button onClick={openDownloader}>open Downloader</button>}
+            {!showDownloader && <button onClick={openDownloader}>Download</button>}
             {showDownloader && <Downloader/>}
         </div>
     )

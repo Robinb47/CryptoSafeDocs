@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useCurrentUser } from "./hooks/useCurrentUser";
-
-//import AccessList from "./AccessList";
-//import PdfWithListUpload from "./PdfWithListUpload";
+import './App.css'
 
 import Home from './Home';
 
@@ -75,8 +73,10 @@ function Dashboard() {
     } 
 
     const authorizedBody = 
-    <>
-        You successfully signed in with Passage.
+    <> 
+    <br/>
+    You successfully  authorized with your biometric identification. <br/>
+    Before you send data, you have to authorize with your connected MetaMask Account.
         <Home />
     </>
 
@@ -88,34 +88,13 @@ function Dashboard() {
         <PdfWithListUpload/> 
         <WalletAuth/>     
     </>
-    
     */ 
 
     const unauthorizedBody = 
     <>
-        You have not logged in and cannot view the dashboard.
-        <br></br>
+        You have not logged in and cannot view the dashboard. <br/>
     </>
 
-    /*
-    const {isLoading, isAuthorized, username} = useCurrentUser();
-
-    if (isLoading) {
-        return null;
-    }
-    const authorizedBody = 
-    <>
-        You successfully signed in with Passage.
-        <br></br>
-        Your email is: <b>{username}</b>
-    </>
-
-    const unauthorizedBody = 
-    <>
-        You have not logged in and cannot view the dashboard.
-        <br></br>
-    </>
-    */
     return (
         <>
         <div>

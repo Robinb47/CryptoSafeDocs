@@ -29,7 +29,9 @@ function UploadWithKey() {
    const [recipientKey, setRecipientKey] = useState("");
 
    //Key&LinkManager Address
-   let contractAddress = "0xA744F84115B10a8C1bdcB82aA7A39Fa7F326F831";
+   let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+
+   //erkennt MetaMask-Account ohne button Click
 
    const connectWalletHandler = () => {
 
@@ -44,6 +46,7 @@ function UploadWithKey() {
       contractConnect();
   }
 
+    //Kann raus
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && inputValue.trim() !== '') {
           // Neues Element zur Liste hinzufügen
@@ -84,10 +87,19 @@ function UploadWithKey() {
           formData.append('pdf', file);
           formData.append('recipientKey', contractKey);
 
+          //FÜR WEBAUTHN hinzugefügt
+          const authToken = localStorage.getItem("psg_auth_token");
+
           fetch('http://localhost:5052/upload', {
             method: 'POST',
             body: formData,
+            //für Passage hinzugefügt bis lila Klammer
+            credentials: 'include',
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            },
           })
+          //bis hier für Passage
             .then((response) => {
               if (response.ok) {
                 return response.text();
@@ -111,7 +123,7 @@ function UploadWithKey() {
       }
 
       return (
-        <div>
+        <div style={{border: '2px solid black'}}>
             <button onClick={connectWalletHandler}>Click to see logged crypto-account</button>
             <p>Address: {defaultAccount}</p>
             <button onClick={getKeyFromBlockchain}>Click here to see saved Key from Blockchain</button>

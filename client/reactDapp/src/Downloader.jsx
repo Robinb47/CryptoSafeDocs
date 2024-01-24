@@ -21,10 +21,10 @@ function Downloader() {
     const [decryptedDocument, setDecryptedDocument] = useState(""); 
     const [defaultAccount, setDefaultAccount] = useState("");
 
-    let contractAddress = "0xA744F84115B10a8C1bdcB82aA7A39Fa7F326F831";
-
+    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+    
+    //ich wollte dies im Hintergrund mit folgenden Code laufen lassen, es buggt dann aber leider 
     const connectWalletHandler = () => {
-
         window.ethereum.request({method: 'eth_requestAccounts'})
         .then(result => {
             accountChangedHandler(result[0]);
@@ -53,6 +53,7 @@ function Downloader() {
         setEncryptedDocument(encryptedLink);
     }
 
+    //OG Version
     const handleDecryption = async () => {
         //const formData = new FormData();
         let encrypted = await contract.getDocument();
@@ -69,6 +70,43 @@ function Downloader() {
             })
             .then((response) => {
                 if (response.ok) {
+                   // setDecryptedDocument(response.text());
+                    return response.text();
+                } else {
+                    console.error('Error decrypting the Document ');
+                    throw new Error('Download failed');
+                }
+            })
+            .then((decryptedText) => {
+                //Hier setzt du den entschlüsselten Text ein
+                setDecryptedDocument(decryptedText);
+            })
+            .catch((error) => {
+                //Handle Fetch error
+                console.error('Fetch error:', error);
+            });
+    }
+
+    //passage Version mit WebAuthn
+    const handleDecryptionPassage = async () => {
+        let encrypted = await contract.getDocument();
+        console.log("verschlüsselter Hashwert: ", encrypted);
+
+        const authToken = localStorage.getItem("psg_auth_token");
+
+        console.log("Authentifizierungstoken: ", authToken);
+
+        fetch('http://localhost:5052/download', {
+            method: 'POST',
+            body: encrypted,
+            credentials: 'include',
+            headers: {
+                Authorization: `Bearer ${authToken}`,
+            },
+            })
+            .then((response) => {
+                if (response.ok) {
+                    setDecryptedDocument(decryptedText);
                     return response.text();
                 } else {
                     console.error('Error decrypting the Document ');
@@ -100,13 +138,13 @@ function Downloader() {
 
     return (
         <div>
-            <button onClick={connectWalletHandler}>Click to see logged crypto-account</button>
+            <button onClick={connectWalletHandler}>show crypto-account</button>
             <p>Address: {defaultAccount}</p>
 
             <button onClick={getCryptedLink}>click to see saved document on Blockchain</button>
             <p>encrypted Document: {encryptedDocument}</p>
 
-            <button onClick={handleDecryption}>click to decrypt ipfs-Link</button>
+            <button onClick={handleDecryptionPassage}>click to decrypt ipfs-Link</button>
             <p>decrypted IPFS-Link: {decryptedDocument}</p>
 
             <button onClick={handlePassage}>Try Passage SDK</button>
