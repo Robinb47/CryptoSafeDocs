@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-//import logo from './assets/react.svg';
 import logo from './assets/logo.jpeg';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
@@ -12,7 +11,10 @@ import Dashboard from './Dashboard.jsx';
 import Home from './Home';
 
 
-
+/**
+ * This is the origin component
+ * 
+ */
 function App() {
   const [count, setCount] = useState(0)
 
