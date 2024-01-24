@@ -9,10 +9,8 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 
-//const encrypt = require('./encrypt');
+const Passage = require("@passageidentity/passage-node");
 
-//hier kommt die Erweiterung für die Verschlüsselung
-//const secp256k1 = require('secp256k1');
 const crypto = require('crypto');
 
 
@@ -23,6 +21,39 @@ app.use(cors());
 
 app.use(express.text());
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Erlaubt Anfragen von dieser Ursprungsdomain
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Authorization'); // Erlaubt den Authorization-Header
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Erlaubt bestimmte Methoden
+    if (req.method === 'OPTIONS') {
+      // Sendet eine sofortige Antwort für OPTIONS-Anfragen
+      return res.sendStatus(200);
+    }
+    next();
+  });
+
+//Konfiguration für Passage noch PASSAGE_APP_ID anpassen
+const passageConfig = {
+    appID: "swni5tN408lF8CQAWVwxli4d",
+    authStrategy: "HEADER",
+};
+
+let passage = new Passage(passageConfig);
+let passageAuthMiddleware = (() => {
+    return async (req, res, next) => {
+        try {
+            let userID = await passage.authenticateRequest(req);
+            if (userID) {
+                res.userID = userID;
+                next();
+            }
+        } catch (PassageError) {
+            console.log(PassageError);  
+            res.status(401).send('Could not authenticate user!');
+        }
+    }
+})();
 
 // Funktion zum Generieren von RSA-Schlüsselpaaren
 function generateKeyPair() {
@@ -49,7 +80,6 @@ app.post('/keymanager', (req, res) => {
   
     // Hier können Sie weitere Operationen mit ownerAddress durchführen
     let key = generateKeyPair();
-
 
     // Beispiel: Erstellen Sie einen öffentlichen Schlüssel
     const publicKey = key;
