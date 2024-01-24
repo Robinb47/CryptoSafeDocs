@@ -9,10 +9,6 @@ import { Routes, Route } from "react-router-dom";
 import Login from './Login';
 import Dashboard from './Dashboard.jsx';
 
-
-import WalletAuth from './WalletAuth';
-
-import Decrypter from './Decrypter';
 import Home from './Home';
 
 
