@@ -9,6 +9,9 @@ import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 function KeyManager() {
 
+    //KeyManager contractaddress
+    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+
     //Erweiterung für Smart Contract Interaktion
     const [provider, setProvider] = useState("");
     const [signer, setSigner] = useState("");
@@ -19,11 +22,6 @@ function KeyManager() {
     const [publicKey, setPublicKey] = useState("");
    
     const [generatedKey, setGeneratedKey] = useState("");
-
-
-    //KeyManager Contractaddress
-    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
-
 
     const connectWalletHandler = () => {
 
@@ -43,7 +41,7 @@ function KeyManager() {
 
 
     /**
-     * Setting connection with SmartContract: KeyManager
+     * Setting connection with SmartContract: KeyAndLinkManager
      */
     const contractConnect = async (abi) => {
         let tempProvider = new ethers.BrowserProvider(window.ethereum);
@@ -74,8 +72,8 @@ function KeyManager() {
      }
 
      /**
-      * Senden der eigenen Kryptoadresse an Server.
-      * Rückerhalt vom neu generierten Schlüssel vom Server
+      * sending own crypto-address to server
+      * receive new generated key from server
       */
     const getPublicKeyFromServer = async () => {
         const ownerAddress = defaultAccount;
@@ -84,16 +82,16 @@ function KeyManager() {
         const response = await fetch('http://localhost:5051/keymanager', {
             method: 'POST',
             headers: {
-            'Content-Type': 'text/plain', // Setzen Sie den Content-Type auf text/plain
+            'Content-Type': 'text/plain', 
             },
-            body: ownerAddress, // Übergeben Sie den String direkt im Body
+            body: ownerAddress, 
         });
     
         if (!response.ok) {
             throw new Error('Fehler beim Senden der Daten');
         }
     
-        const publicKey = await response.text(); // Lesen Sie den zurückgegebenen String
+        const publicKey = await response.text(); 
         setGeneratedKey(publicKey);
         console.log('Öffentlicher Schlüssel vom Server erstellt:', generatedKey);
         } catch (error) {

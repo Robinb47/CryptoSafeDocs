@@ -7,7 +7,7 @@ const cors = require('cors');
 //NEU
 const Passage = require("@passageidentity/passage-node");
 
-//hier kommt die Erweiterung für die Verschlüsselung
+//for cryption
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 
@@ -16,8 +16,6 @@ const key = new NodeRSA({b: 512});
 
 const app = express();
 const port = 5052;
-
-//app.use(cors());
 
 
 app.use((req, res, next) => {
@@ -32,8 +30,6 @@ app.use((req, res, next) => {
     next();
   });
 
-//Versuch Cors als Sicherheitsmechanismus zu verwenden
-//http://localhost:5173 als einzige mögliche Domain
 
 app.use(bodyParser.json());
 const upload = multer({ dest: "uploads/" });
@@ -48,6 +44,9 @@ const passageConfig = {
     authStrategy: "HEADER",
 };
 
+/**
+ * Passage middleware, checks the received authorizationtoken from client
+ */
 let passage = new Passage(passageConfig);
 let passageAuthMiddleware = (() => {
     return async (req, res, next) => {
@@ -63,16 +62,16 @@ let passageAuthMiddleware = (() => {
         }
     }
 })();
-//alles obige neu ergänzt für Passage Authorisierung
 
-
+/**
+ * receives pdf-file and public key from recipient
+ */
 app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res) => {
     try {
-        // Hochgeladene PDF-Datei lesen
         const filePath = req.file.path;
         const content = fs.readFileSync(filePath, { encoding: "base64" });
 
-        //hochgeladene Liste lesen
+        //check received public key
         const recipientKey = req.body.recipientKey;
         console.log("Das ist der erhaltene Key von der Blockchain: ", recipientKey);
 
@@ -92,20 +91,12 @@ app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res
          let ipfsPath = response.result[0].path;
          console.log("gefilterter Ipfs-Link: ", ipfsPath);
 
-         //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
-        //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
-        //const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
-
-
         key.importKey(recipientKey, 'public');
-       // key.importKey(privateKeyFile, 'private');
 
         const encryptedMessage = key.encrypt(ipfsPath, 'base64');
         console.log('encrypted: ', encryptedMessage);
 
         res.send(encryptedMessage);
-        //const decryptedMessage = key.decrypt(encryptedMessage, 'utf-8');
-        //console.log("Das ist die entschlüsselte Nachricht: ", decryptedMessage);
 
     } catch (error) {
         console.error("Fehler:", error);
@@ -113,31 +104,20 @@ app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res
     }
 });
 
-      //const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
-        //const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
-
-       // key.importKey(publicKeyFile, 'public');
-       // key.importKey(privateKeyFile, 'private');
-        //const decryptedDocument = key.decrypt(encryptedDocument, 'base64');
-        //console.log('Encrypted IPFS-Link: ', decryptedDocument);
-
-//TO-DO: Implementierung eines POST-Request
-//Erhalte eine Zeichenfolge = String verschlüsselter IPFS-Hash
-
 app.use(express.text());
 
 
-//hier unten wurde passageAuthMiddleware ergänzt
+/**
+ * Download route: receiving crypted document ipfs-link from client and decrypt it with private key
+ */
 app.post("/download", passageAuthMiddleware, async (req, res) => {
     try {
         const encryptedDocument = req.body;
         console.log("Das ist der erhaltene verschlüsselte IPFS-Link:", encryptedDocument);
 
         const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
-        const publicKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/public.pem', 'utf-8');
         key.importKey(privateKeyFile, 'private');
-        //key.importKey(publicKeyFile, 'public');
-        
+
         const decryptedDocument = key.decrypt(encryptedDocument, 'utf-8');
         console.log('Decrypted IPFS-Link: ', decryptedDocument);
 

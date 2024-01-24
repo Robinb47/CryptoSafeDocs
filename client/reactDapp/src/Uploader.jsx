@@ -1,25 +1,18 @@
 import React, { useEffect, useState } from 'react';
-
 import { ethers } from 'ethers'
-import forge from 'node-forge';
-
-//import RSAPublicKeyRegistry_abi from './contracts/RSAPublicKeyRegistry_abi.json';
-import { setegid } from 'process';
-
-import KeyManager_abi from './contracts/KeyManager_abi.json';
 
 import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 function UploadWithKey() {
-    //useState definieren
+
+
+  //contractaddress from smart contract
+  let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+
     const [file, setFile] = useState(null);
     const [ipfsHash, setIpfsHash] = useState(''); // Neuer Zustand für den IPFS-Hash
 
-    // Erweiterungen für die mitgesendete Liste
-    const [inputValue, setInputValue] = useState('');
-    const [items, setItems] = useState([]);
-
-    //Erweiterung für Smart Contract Interaktion
+    //useState for smart contract interaction
     const [provider, setProvider] = useState("");
     const [signer, setSigner] = useState("");
     const [contract, setContract] = useState("");
@@ -28,13 +21,8 @@ function UploadWithKey() {
    const [defaultAccount, setDefaultAccount] = useState("");
    const [recipientKey, setRecipientKey] = useState("");
 
-   //Key&LinkManager Address
-   let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
-
-   //erkennt MetaMask-Account ohne button Click
 
    const connectWalletHandler = () => {
-
     window.ethereum.request({method: 'eth_requestAccounts'})
     .then(result => {
         accountChangedHandler(result[0]);
@@ -45,19 +33,6 @@ function UploadWithKey() {
       setDefaultAccount(newAccount);
       contractConnect();
   }
-
-    //Kann raus
-    const handleKeyDown = (event) => {
-        if (event.key === 'Enter' && inputValue.trim() !== '') {
-          // Neues Element zur Liste hinzufügen
-          if (inputValue.length == 42 && inputValue.startsWith('0x')) {
-            setItems([...items, inputValue.trim()])
-            setInputValue('');
-          } else {
-            setInputValue('ungültige Eingabe');
-          }
-        }
-      };
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -121,33 +96,31 @@ function UploadWithKey() {
       const saveDoc = () => {
         contract.setDocument(ipfsHash);
       }
-
       return (
+        <>
         <div style={{border: '2px solid black'}}>
+            <h2> Uploader </h2>
             <button onClick={connectWalletHandler}>Click to see logged crypto-account</button>
             <p>Address: {defaultAccount}</p>
+
+            <br/>
+
             <button onClick={getKeyFromBlockchain}>Click here to see saved Key from Blockchain</button>
             <p>Blockchain-Key:</p>
             <textarea rows={5} cols={50} value={contractKey} readOnly></textarea>
-
-            <ul>
-                {items.map((item, index) => (
-                <li key={index}>{item}</li>
-                ))}
-            </ul>
-            <input type="text" value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="enter public key"
-            />
-            <button onClick="">send list</button>
-  
-
+            <br/>
+    
           <input type="file" onChange={handleFileChange} accept=".pdf" />
           <button onClick={handleFileUpload}>Upload PDF</button>
           <p>IPFS-Hash: {ipfsHash}</p>
           <button onClick={saveDoc}>click to save encrypted document on Blockchain</button>
-          </div>
+        <br/>
+        <br/>
+        </div>
+        <div>
+           <h3> Go to KeyGenerator or Downloader</h3>
+        </div>
+        </>
       );
 };
 

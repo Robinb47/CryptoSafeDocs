@@ -8,10 +8,13 @@ import Downloader from './Downloader';
 
 import './App.css';
 
-
+/**
+ * This component is the start menue from this dApp.
+ * At the beginning it shows all menue options: KeyGenerator, Downloader, Uploader
+ * Then it shows the two other options.
+ */
 function Home() {
 
-    //useStates for Button oppertunities
     const [showKeyRegistry, setShowKeyRegistry] = useState(false);
     const [showUploader, setShowUploader] = useState(false);
     const [showDownloader, setShowDownloader] = useState(false);
@@ -38,12 +41,12 @@ function Home() {
     return (
         <div>
             <br/>
-            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Keycreater</button>}
             {showKeyRegistry && <KeyAndLinkManager />}
-            {!showUploader && <button onClick={openUploader}>Upload</button>}
             {showUploader && <Uploader/>}
-            {!showDownloader && <button onClick={openDownloader}>Download</button>}
             {showDownloader && <Downloader/>}
+            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Keycreater</button>}
+            {!showUploader && <button onClick={openUploader}>Upload</button>}
+            {!showDownloader && <button onClick={openDownloader}>Download</button>}
         </div>
     )
 }
