@@ -94,18 +94,26 @@ function Downloader() {
     }
 
     return (
-        <div>
+        <>
+        <div style={{border: '2px solid black'}}>
+            <h2> Downloader </h2>
             <button onClick={connectWalletHandler}>show crypto-account</button>
             <p>Address: {defaultAccount}</p>
 
-            <button onClick={getCryptedLink}>click to see saved document on Blockchain</button>
-            <p>encrypted Document: {encryptedDocument}</p>
+            <button onClick={getCryptedLink}>click for document on Blockchain</button>
+            <textarea rows={2} cols={30} value={encryptedDocument} readOnly></textarea> <br/>
+
 
             <button onClick={handleDecryptionPassage}>click to decrypt ipfs-Link</button>
+            <textarea rows={2} cols={30} value={decryptedDocument} readOnly></textarea> <br/>
             <p>decrypted IPFS-Link: {decryptedDocument}</p>
 
-        
         </div>
+            <div>
+              <h3> Go to Uploader or KeyGenerator </h3>
+            </div>
+
+        </>
     );
     
 }
