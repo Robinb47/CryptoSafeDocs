@@ -7,10 +7,15 @@ import { ethers } from 'ethers';
 import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 
-function KeyManager() {
+/**
+ * This component gives your own public key on the blockchain back.
+ * You are able to generate a new RSA key pair, which is getting saved localy.
+ * The generated public key can override your public key on blockchain after you confirm.
+ */
+function KeyAndLinkManager() {
 
     //KeyManager contractaddress
-    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+    let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
 
     //Erweiterung für Smart Contract Interaktion
     const [provider, setProvider] = useState("");
@@ -135,5 +140,5 @@ function KeyManager() {
 }
 
 
-export default KeyManager;
+export default KeyAndLinkManager;
 

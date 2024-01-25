@@ -121,6 +121,8 @@ app.post("/download", passageAuthMiddleware, async (req, res) => {
         const decryptedDocument = key.decrypt(encryptedDocument, 'utf-8');
         console.log('Decrypted IPFS-Link: ', decryptedDocument);
 
+        res.send(decryptedDocument);
+
     } catch (error) {
         console.error("Fehler", error);
         res.status(500).json({ error: "Interner Serverfehler" });

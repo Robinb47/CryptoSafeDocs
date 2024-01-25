@@ -7,7 +7,7 @@ function UploadWithKey() {
 
 
   //contractaddress from smart contract
-  let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+  let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
 
     const [file, setFile] = useState(null);
     const [ipfsHash, setIpfsHash] = useState(''); // Neuer Zustand für den IPFS-Hash

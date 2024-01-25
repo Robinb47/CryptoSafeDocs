@@ -7,7 +7,7 @@ import KeyAndLinkMananger_abi from './contracts/KeyAndLinkManager_abi.json';
 function Downloader() {
 
      //set here your contract address after deploying via Remix
-    let contractAddress = "0x5dcD32D9F30999D537695B2029579481540392e2";
+    let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
 
 
     //Erweiterung für Smart Contract Interaktion
@@ -72,12 +72,12 @@ function Downloader() {
             body: encrypted,
             credentials: 'include',
             headers: {
+                'Content-Type':  'text/plain',
                 Authorization: `Bearer ${authToken}`,
             },
             })
             .then((response) => {
                 if (response.ok) {
-                    setDecryptedDocument(decryptedText);
                     return response.text();
                 } else {
                     console.error('Error decrypting the Document ');
@@ -105,8 +105,9 @@ function Downloader() {
 
 
             <button onClick={handleDecryptionPassage}>click to decrypt ipfs-Link</button>
-            <textarea rows={2} cols={30} value={decryptedDocument} readOnly></textarea> <br/>
-            <p>decrypted IPFS-Link: {decryptedDocument}</p>
+            <textarea rows={2} cols={30} value={decryptedDocument} readOnly></textarea> 
+            <br/>
+            <br/>
 
         </div>
             <div>
