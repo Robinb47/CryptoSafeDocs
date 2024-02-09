@@ -73,7 +73,7 @@ app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res
 
         //check received public key
         const recipientKey = req.body.recipientKey;
-        console.log("Das ist der erhaltene Key von der Blockchain: ", recipientKey);
+        console.log("Das ist der erhaltene Key von vom Fronted und zuvor Blockchain: ", recipientKey);
 
         const uploadArray = [
             {

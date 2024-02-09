@@ -10,7 +10,7 @@ function Downloader() {
     let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
 
 
-    //Erweiterung für Smart Contract Interaktion
+    //Smart Contract Interaction
     const [provider, setProvider] = useState("");
     const [signer, setSigner] = useState("");
     const [contract, setContract] = useState("");
