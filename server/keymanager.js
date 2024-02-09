@@ -78,10 +78,9 @@ app.post('/keymanager', (req, res) => {
     const ownerAddress = req.body;
     console.log('Empfangene ownerAddress:', ownerAddress);
   
-    // Hier können Sie weitere Operationen mit ownerAddress durchführen
     let key = generateKeyPair();
 
-    // Beispiel: Erstellen Sie einen öffentlichen Schlüssel
+    // create public key
     const publicKey = key;
     console.log("Der erstellte IPFS-Link: ", publicKey);
   
