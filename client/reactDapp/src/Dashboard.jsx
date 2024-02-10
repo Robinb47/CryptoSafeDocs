@@ -4,74 +4,18 @@ import './App.css'
 
 import Home from './Home';
 
-/*
+
+// Dashboard component to display user-specific information based on their authentication status.
 function Dashboard() {
-  const { isLoading, isAuthorized, username } = useCurrentUser();
-  const [isUploaderOpen, setIsUploaderOpen] = useState(false);
-
-  if (isLoading) {
-    return null;
-  }
-
-
-  const authorizedBody = (
-    <>
-      You successfully signed in with Passage.
-      <br />
-      <br />
-      Your email is: <b>{username}</b>
-    </>
-  );
-
-  const unauthorizedBody = (
-    <>
-      You have not logged in and cannot view the dashboard.
-      <br />
-      <br />
-      <a>Login to continue.</a>
-    </>
-  );
-
-  const closeUploader = () => {
-    setIsUploaderOpen(false);
-  };
-
-  const openHasher = () => {
-    setIsUploaderOpen(true);
-  };
-
-  if (isAuthorized) {
-    return (
-      <div id="actionArea">
-        <button onClick={openHasher}>Upload</button>
-        <button>Download</button>
-        {isUploaderOpen && <PdfUpload />}{" "}
-        {/* Hier wird die PdfUpload-Komponente gerendert HIER MUSS KOMMENTAR ENDEN} 
-        <br></br>
-        {isUploaderOpen && (
-          <button onClick={closeUploader}>Close Uploader</button>
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <>
-        <p>Falscher Account bro</p>
-      </>
-    );
-  }
-}
-
-export default Dashboard;
-*/
-
-function Dashboard() {
+    // Custom hook to check current user's loading state, authorization status, and username.
     const {isLoading, isAuthorized, username} = useCurrentUser();
 
+    // Return nothing if data is still loading to prevent flashing of unauthorized content.
     if (isLoading) {
         return null;
     } 
 
+    // Content displayed to authorized users
     const authorizedBody = 
     <> 
     <br/>
@@ -80,27 +24,25 @@ function Dashboard() {
         <Home />
     </>
 
-    /* war vorher so 
-       const authorizedBody = 
-    <>
-        You successfully signed in with Passage.
-        <Home />
-        <PdfWithListUpload/> 
-        <WalletAuth/>     
-    </>
-    */ 
-
+    // Content displayed to users who are not logged in
     const unauthorizedBody = 
     <>
         You have not logged in and cannot view the dashboard. <br/>
     </>
 
+    /* 
+      Render either the welcome message and authorized content
+      or a message indicating the user is unauthorized based
+      on their authorization status. 
+    */
     return (
         <>
         <div>
+          {/* Display 'Welcome' for authorized users or 'Unauthorized' for others. */}
             {isAuthorized ? 'Welcome' : 'Unauthorized'}
         </div>
         <div>
+          {/* Conditionally render content based on user's authorization status. */}
             { isAuthorized ? authorizedBody : unauthorizedBody }
         </div>
         </>

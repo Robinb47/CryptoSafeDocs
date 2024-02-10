@@ -2,34 +2,30 @@ import React, { useEffect, useState } from 'react';
 
 import { ethers } from 'ethers';
 
-//import KeyManager_abi from './contracts/KeyManager_abi.json';
 
 import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 
 /**
- * This component gives your own public key on the blockchain back.
- * You are able to generate a new RSA key pair, which is getting saved localy.
- * The generated public key can override your public key on blockchain after you confirm.
+ * This component enables users to check their public key from the blockchain,
+ * generate a new RSA key pair locally, and then update their public key on the blockchain upon confirmation.
  */
 function KeyAndLinkManager() {
 
-    //KeyManager contractaddress
+    // Address of the KeyManager smart contract
     let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
 
-    //Erweiterung für Smart Contract Interaktion
+    // States for Smart Contract interaction
     const [provider, setProvider] = useState("");
     const [signer, setSigner] = useState("");
     const [contract, setContract] = useState("");
-
     const [contractKey, setContractKey] = useState("");
     const [defaultAccount, setDefaultAccount] = useState("");
     const [publicKey, setPublicKey] = useState("");
-   
     const [generatedKey, setGeneratedKey] = useState("");
 
+    // Handler to connect to the user's MetaMask wallet
     const connectWalletHandler = () => {
-
         window.ethereum.request({method: 'eth_requestAccounts'})
             .then(result => {
                 accountChangedHandler(result[0]);
@@ -37,7 +33,7 @@ function KeyAndLinkManager() {
         }
 
     /**
-     * Changes the address by change
+     * Handles account change events by updating the user's account address and reconnecting to the contract.
      */
     const accountChangedHandler = (newAccount) => {
         setDefaultAccount(newAccount);
@@ -46,7 +42,7 @@ function KeyAndLinkManager() {
 
 
     /**
-     * Setting connection with SmartContract: KeyAndLinkManager
+     * Establishes a connection to the KeyAndLinkManager smart contract.
      */
     const contractConnect = async (abi) => {
         let tempProvider = new ethers.BrowserProvider(window.ethereum);
@@ -59,27 +55,26 @@ function KeyAndLinkManager() {
         setContract(tempContract);      
     }
     
-   /**
-    * Shows the saved public key on blockchain
-    */
+    /**
+     * Retrieves the public key stored on the blockchain for the current user.
+     */
     const getKeyFromBlockchain = async () => {
         let key = await contract.getOwnKey();
         setContractKey(key);
      }
 
-     /**
-      * This methods creates a RSA Keypair and saves them as public and private.pem
-      * The public keys will be overwrite the value on blockchain.
+    /**
+     * Generates a new RSA key pair, saves them locally as public and private .pem files.
+     * The public key can then be used to update the user's public key on the blockchain.
      */
      const generateKeys = async () => {
         //sendPublicKeyToServer;
         getPublicKeyFromServer();
      }
 
-     /**
-      * sending own crypto-address to server
-      * receive new generated key from server
-      */
+    /**
+     * Sends the user's Ethereum address to the server and receives a new generated public key in return.
+     */
     const getPublicKeyFromServer = async () => {
         const ownerAddress = defaultAccount;
 
@@ -105,7 +100,7 @@ function KeyAndLinkManager() {
     }
 
     /**
-     * This method saves the generated public key on the Blockchain.
+     * Saves the newly generated public key on the blockchain.
      */
     const sendGeneratedKeyToBlockchain = () => {
         contract.setKey(generatedKey);
@@ -117,9 +112,7 @@ function KeyAndLinkManager() {
             <h2>Key Generator</h2>
             <button onClick={connectWalletHandler}>show crypto-account</button>
             <p>Address: {defaultAccount}</p>
-           
             <br/>
-
             <button onClick={getKeyFromBlockchain}>Check key from Blockchain</button>
             <p>Public-Key on Blockchain:</p>
             <textarea rows={5} cols={50} value={contractKey} readOnly></textarea> <br/>
@@ -134,11 +127,9 @@ function KeyAndLinkManager() {
             <div >
             <h3>Go to Uploader or Downloader</h3>
             </div>
-    
         </>
     );
 }
-
 
 export default KeyAndLinkManager;
 

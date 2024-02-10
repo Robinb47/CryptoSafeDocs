@@ -41,19 +41,29 @@
   color: #888;
 }
 
+div {
+  position: overlav;
+}
+
+/*
+  This CSS snippet defines the styling for buttons within the application,
+  setting a dark blue background color with white text for optimal readability.
+  It removes the default border, applies padding for a larger clickable area,
+  and rounds the corners for a modern look.
+  The cursor is set to pointer to indicate that the elements are clickable.
+  A margin to the right ensures spacing between adjacent buttons.
+  The hover state changes the background to a darker gray to indicate interactivity.
+  "!important" is used to ensure these styles override any other conflicting styles.
+*/
 button {
-  background-color: #081d24 !important;
+  background-color: #081d24 !important; 
   color: white;
   border: none;
   padding: 10px 15px;
-  border-radius: 5px !important;
+  border-radius: 5px !important; 
   cursor: pointer;
   margin-right: 10px;
   position: relative;
-}
-
-div {
-  position: overlav;
 }
 
 button:hover {

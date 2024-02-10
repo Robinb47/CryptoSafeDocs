@@ -1,1 +1,1 @@
-# SafeDoc
+# CryptoSafeDocs
