@@ -13,7 +13,7 @@ import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 function KeyAndLinkManager() {
 
     // Address of the KeyManager smart contract
-    let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
+    let contractAddress = "0x4707E4820c44310bE3ce0761e934A48138BC4d9B";
 
     // States for Smart Contract interaction
     const [provider, setProvider] = useState("");

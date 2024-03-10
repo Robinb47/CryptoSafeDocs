@@ -4,7 +4,6 @@ const multer = require("multer");
 const Moralis = require("moralis").default;
 const fs = require("fs");
 const cors = require('cors');
-//NEU
 const Passage = require("@passageidentity/passage-node");
 
 //for cryption
@@ -29,7 +28,6 @@ app.use((req, res, next) => {
     }
     next();
   });
-
 
 app.use(bodyParser.json());
 const upload = multer({ dest: "uploads/" });
@@ -92,8 +90,11 @@ app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res
          console.log("gefilterter Ipfs-Link: ", ipfsPath);
 
         // Import the recipient's public key and encrypt the IPFS path
-        key.importKey(recipientKey, 'public');
-        const encryptedMessage = key.encrypt(ipfsPath, 'base64');
+        const encryptKey = new NodeRSA();
+        encryptKey.importKey(recipientKey, 'public');
+        const encryptedMessage = encryptKey.encrypt(ipfsPath, 'base64');
+        //key.importKey(recipientKey, 'public');
+       // const encryptedMessage = key.encrypt(ipfsPath, 'base64');
         console.log('encrypted: ', encryptedMessage);
 
         // Send the encrypted IPFS path to the client
@@ -117,15 +118,14 @@ app.post("/download", passageAuthMiddleware, async (req, res) => {
         console.log("Das ist der erhaltene verschlüsselte IPFS-Link:", encryptedDocument);
 
         // Read the private key from a file
-        const privateKeyFile = fs.readFileSync('/Users/robinb47/SafeDoc/server/Download/private.pem', 'utf-8');
-        key.importKey(privateKeyFile, 'private');
+        const privateKeyFile = fs.readFileSync('/Users/robinb47/CryptoSafeDocs/server/Download/private.pem', 'utf-8');
 
         // Decrypt the document link
-        const decryptedDocument = key.decrypt(encryptedDocument, 'utf-8');
-        console.log('Decrypted IPFS-Link: ', decryptedDocument);
-
-        // Send the decrypted link back to the client
-        res.send(decryptedDocument);
+        const decryptKey = new NodeRSA();
+        decryptKey.importKey(privateKeyFile, 'private');
+        const decryptedDocument = decryptKey.decrypt(encryptedDocument, 'utf-8');
+        console.log('Decrypted IPFS-Link: ', decryptedDocument); //log to check the decryption
+        res.send(decryptedDocument); // Send the decrypted link back to the client
 
     } catch (error) {
         console.error("Fehler", error);

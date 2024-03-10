@@ -5,7 +5,7 @@ import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 function Uploader() {
   // Address of the deployed smart contract
-  let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
+  let contractAddress = "0x4707E4820c44310bE3ce0761e934A48138BC4d9B";
 
     // State hooks for managing file upload and interaction with the smart contract
     const [file, setFile] = useState(null); // Holds the file selected by the user

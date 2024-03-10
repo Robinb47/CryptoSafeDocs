@@ -31,7 +31,7 @@ function App() {
     <>
       <div>
         <a target="_blank" onClick={handleLogoClick}>
-          {/* Application logo with inline styling */}
+          {/* Application logo (KI generated with DALL-E from OpenAI) with inline styling */}
           <img src={logo} className="logo react" alt="React logo" style={{ width: '200px', height: '200px' }} />
         </a>
       </div>

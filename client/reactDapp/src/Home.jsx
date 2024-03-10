@@ -48,7 +48,7 @@ function Home() {
             {showUploader && <Uploader/>}
             {showDownloader && <Downloader/>}
             {/* Navigation buttons: Displayed when their corresponding component is not rendered */}
-            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>Keycreater</button>}
+            {!showKeyRegistry &&  <button onClick={openKeyRegistry}>KeyGenerator</button>}
             {!showUploader && <button onClick={openUploader}>Upload</button>}
             {!showDownloader && <button onClick={openDownloader}>Download</button>}
         </div>

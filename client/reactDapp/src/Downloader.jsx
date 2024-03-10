@@ -7,7 +7,7 @@ import KeyAndLinkMananger_abi from './contracts/KeyAndLinkManager_abi.json';
 function Downloader() {
 
     // Define the contract address. Update this address after deploying your contract via Remix or another deployment tool.
-    let contractAddress = "0x17da2467579b8C5755E7825DaCa3aac617B89c6E";
+    let contractAddress = "0x4707E4820c44310bE3ce0761e934A48138BC4d9B";
 
 
     // State variables for interacting with the Ethereum blockchain and managing document encryption/decryption.

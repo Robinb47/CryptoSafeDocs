@@ -82,8 +82,6 @@ app.post('/keymanager', (req, res) => {
     console.log('Empfangene ownerAddress:', ownerAddress);
   
     let key = generateKeyPair();
-
-    // create public key Doppelt gemoppelt, kann weg
     const publicKey = key;
     console.log("Der erstellte öffentliche Schlüssel: ", publicKey);
   
