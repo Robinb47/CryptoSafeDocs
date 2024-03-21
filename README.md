@@ -29,6 +29,7 @@ git clone https://github.com/Robinb47/CryptoSafeDocs.git
 3. **Abhängigkeiten installieren im Fronted:**
 
 ```bash
+cd CryptoSafeDocs/client/reactDapp
 npm install ethers
 npm install "@passageidentity/passage-elements/passage-auth"
 npm install react-router-dom
@@ -37,6 +38,7 @@ npm install react-router-dom
 4. **Abhängigkeiten installieren im Backend:**
 
 ```bash
+cd CryptoSafeDocs/server
 npm install moralis
 npm install fs
 npm install cors
@@ -53,14 +55,14 @@ npm install multer
 1. **Starten des Fronteds:**
 
 ```bash
-cd CryptoSafeDocs\client\reactDapp
+cd CryptoSafeDocs/client/reactDapp
 npm run dev
 ```
 
 2. **Starten des Backends:**
 
 ```bash
-cd CryptoSafeDocs\server
+cd CryptoSafeDocs/server
 node index.js
 node keymanager.js
 ```
