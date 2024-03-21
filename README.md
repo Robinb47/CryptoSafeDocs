@@ -32,6 +32,7 @@ git clone https://github.com/Robinb47/CryptoSafeDocs.git
 cd CryptoSafeDocs/client/reactDapp
 npm install ethers
 npm install "@passageidentity/passage-elements/passage-auth"
+npm install react-dom
 npm install react-router-dom
 ```
 
@@ -52,17 +53,19 @@ npm install multer
 
 # Benutzung
 
-1. **Starten des Fronteds:**
-
-```bash
-cd CryptoSafeDocs/client/reactDapp
-npm run dev
-```
-
-2. **Starten des Backends:**
+1. **Starten des Backends:**
 
 ```bash
 cd CryptoSafeDocs/server
 node index.js
 node keymanager.js
 ```
+
+2. **Starten des Fronteds:**
+
+```bash
+cd CryptoSafeDocs/client/reactDapp
+npm run dev
+```
+
+Das Fronted ist nun unter `http://localhost:5173/` erreichbar.
