@@ -93,8 +93,6 @@ app.post("/upload", passageAuthMiddleware, upload.single("pdf"), async (req, res
         const encryptKey = new NodeRSA();
         encryptKey.importKey(recipientKey, 'public');
         const encryptedMessage = encryptKey.encrypt(ipfsPath, 'base64');
-        //key.importKey(recipientKey, 'public');
-       // const encryptedMessage = key.encrypt(ipfsPath, 'base64');
         console.log('encrypted: ', encryptedMessage);
 
         // Send the encrypted IPFS path to the client
