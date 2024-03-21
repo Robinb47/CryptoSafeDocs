@@ -4,7 +4,7 @@ Im Rahmen meiner Bachelorarbeit mit dem Titel "Implementierung einer gesicherten
 
 # Beschreibung
 
-Dieses Projekt ermöglicht die gesicherte Freigabe von Dokumenten zwischen zwei Teilnehmern unter Verwendung der Blockchain- und IPFS-Technologie sowie der RSA-Verschlüsselung.
+Dieses Projekt ermöglicht die gesicherte Freigabe von Dokumenten zwischen zwei Teilnehmern unter Verwendung der Blockchain- und IPFS-Technologie sowie der RSA-Verschlüsselung. Zusätzlich wurde ein WebAuthn-Loginformular eingebunden.
 
 Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffslinks auf der Blockchain hinterlegen und zugewiesene Dokumente sicher abrufen. Diese Anwendung integriert Smart Contracts, die in Solidity geschrieben sind, und interagiert mit der Blockchain über die MetaMask-Erweiterung, wodurch eine hohe Sicherheit und Dezentralisierung gewährleistet wird.
 
@@ -17,13 +17,35 @@ Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffs
 
 # Installation
 
-1. **Voraussetzungen:** Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051, 5052 sollten frei sein.
+1. **Voraussetzungen:** Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051 und 5052 sollten frei sein.
 
 2. **Repository clonen**
 
 ```bash
 cd <Zielverzeichnis>
 git clone https://github.com/Robinb47/CryptoSafeDocs.git
+```
+
+3. **Abhängigkeiten installieren im Fronted:**
+
+```bash
+npm install ethers
+npm install "@passageidentity/passage-elements/passage-auth"
+npm install react-router-dom
+```
+
+4. **Abhängigkeiten installieren im Backend:**
+
+```bash
+npm install moralis
+npm install fs
+npm install cors
+npm install "@passageidentity/passage-node"
+npm install crypto
+npm install node-rsa
+npm install express
+npm install body-parser
+npm install multer
 ```
 
 # Benutzung
