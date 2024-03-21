@@ -18,6 +18,7 @@ Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffs
 # Installation
 
 1. **Voraussetzungen**
+
    Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051 und 5052 sollten frei sein.
 
 2. **Repository clonen**
@@ -37,7 +38,7 @@ npm install react-dom
 npm install react-router-dom
 ```
 
-4. **Abhängigkeiten installieren im Backend:**
+4. **Abhängigkeiten installieren im Backend**
 
 ```bash
 cd CryptoSafeDocs/server
@@ -54,7 +55,7 @@ npm install multer
 
 # Benutzung
 
-1. **Starten des Backends:**
+1. **Starten des Backends**
 
 ```bash
 cd CryptoSafeDocs/server
@@ -62,7 +63,7 @@ node index.js
 node keymanager.js
 ```
 
-2. **Starten des Fronteds:**
+2. **Starten des Fronteds**
 
 ```bash
 cd CryptoSafeDocs/client/reactDapp
