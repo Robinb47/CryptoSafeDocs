@@ -10,16 +10,16 @@ Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffs
 
 # Technologien
 
-- Fronted: ReactJS
-- Backend: JavaScript (Node.js)
-- Blockchain Interaktion: Solidity Smart Contract, MetaMask Erweiterung
-- Datenfreigabe: InterPlanetary File System (IPFS)
+- **Fronted:** ReactJS
+- **Backend:** JavaScript (Node.js)
+- **Blockchain Interaktion:** Solidity Smart Contract, MetaMask Erweiterung
+- **Datenfreigabe:** InterPlanetary File System (IPFS)
 
 # Installation
 
-1. Voraussetzungen: Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051, 5052 sollten frei sein.
+1. **Voraussetzungen:** Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051, 5052 sollten frei sein.
 
-2. Repository clonen
+2. **Repository clonen**
 
 ```bash
 cd <Zielverzeichnis>
@@ -28,14 +28,14 @@ git clone https://github.com/Robinb47/CryptoSafeDocs.git
 
 # Benutzung
 
-1. Starten des Fronteds:
+1. **Starten des Fronteds:**
 
 ```bash
 cd CryptoSafeDocs\client\reactDapp
 npm run dev
 ```
 
-2. Starten des Backends:
+2. **Starten des Backends:**
 
 ```bash
 cd CryptoSafeDocs\server
