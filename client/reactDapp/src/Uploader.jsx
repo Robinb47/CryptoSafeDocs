@@ -28,7 +28,7 @@ function Uploader() {
     })
   }
 
-// Handles account changes, updating the default account and reconnecting the contract
+  //Handles account changes, updating the default account and reconnecting the contract
   const accountChangedHandler = (newAccount) => {
       setDefaultAccount(newAccount);
       contractConnect();
@@ -89,7 +89,6 @@ function Uploader() {
               }
             })
             .then((data => 
-
                 setIpfsHash(data))) // Sets the IPFS hash of the uploaded document
             .catch((error) => {
               console.error('Error uploading PDF:', error);

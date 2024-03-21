@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
 import { ethers } from 'ethers';
-
-
 import KeyAndLinkManager_abi from './contracts/KeyAndLinkManager_abi.json';
 
 
@@ -40,7 +37,6 @@ function KeyAndLinkManager() {
         contractConnect(KeyAndLinkManager_abi);
     }
 
-
     /**
      * Establishes a connection to the KeyAndLinkManager smart contract.
      */
@@ -68,7 +64,6 @@ function KeyAndLinkManager() {
      * The public key can then be used to update the user's public key on the blockchain.
      */
      const generateKeys = async () => {
-        //sendPublicKeyToServer;
         getPublicKeyFromServer();
      }
 

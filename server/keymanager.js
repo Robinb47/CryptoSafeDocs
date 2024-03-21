@@ -59,7 +59,7 @@ let passageAuthMiddleware = (() => {
 
 // Function to generate RSA key pairs
 function generateKeyPair() {
-    const key = new NodeRSA({ b: 2048 }); // 2048-bit key, can be adjusted as needed
+    const key = new NodeRSA({ b: 2048 }); // 2048-bit key, can be adjusted as needed (at best 3072)
     const privateKey = key.exportKey('pkcs1-private');
     const publicKey = key.exportKey('pkcs8-public');
   

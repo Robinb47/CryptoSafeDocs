@@ -22,7 +22,7 @@ function App() {
   // State for managing a counter, not utilized in the provided snippet.
   const [count, setCount] = useState(0)
 
-  // Handler for logo click event to navigate to Home component
+  // Handler for logo click event to navigate to Home component.
   const handleLogoClick = () => {
     <Home/>
   }

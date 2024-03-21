@@ -9,7 +9,6 @@ function Downloader() {
     // Define the contract address. Update this address after deploying your contract via Remix or another deployment tool.
     let contractAddress = "0x4707E4820c44310bE3ce0761e934A48138BC4d9B";
 
-
     // State variables for interacting with the Ethereum blockchain and managing document encryption/decryption.
     const [provider, setProvider] = useState("");
     const [signer, setSigner] = useState("");
@@ -18,7 +17,6 @@ function Downloader() {
     const [decryptedDocument, setDecryptedDocument] = useState(""); 
     const [defaultAccount, setDefaultAccount] = useState("");
 
-    
     // Connect to the user's Ethereum wallet using the MetaMask extension.
     const connectWalletHandler = () => {
         window.ethereum.request({method: 'eth_requestAccounts'})
@@ -58,7 +56,7 @@ function Downloader() {
      * It verifies the user's address and returns their specific hash.
      * Additionaly it checks the WebAuthn auth-token.
      */
-        const handleDecryptionPassage = async () => {
+    const handleDecryptionPassage = async () => {
         let encrypted = await contract.getDocument();
         console.log("verschlüsselter Hashwert: ", encrypted);
 

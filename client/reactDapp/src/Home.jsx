@@ -9,7 +9,7 @@ import Downloader from './Downloader';
 import './App.css';
 
 /**
- * `Home` serves as the starting menu of the dApp, offering users the choice between key creation, uploading, and downloading.
+ * Serves as the starting menu of the dApp, offering users the choice between key creation, uploading, and downloading.
  * Based on the user's selection, the corresponding components (KeyAndLinkManager, Uploader, Downloader) are displayed.
  */
 function Home() {
