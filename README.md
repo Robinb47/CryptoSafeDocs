@@ -17,7 +17,8 @@ Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffs
 
 # Installation
 
-1. **Voraussetzungen:** Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051 und 5052 sollten frei sein.
+1. **Voraussetzungen**
+   Stellen Sie sicher, dass Node.js und npm auf Ihrem System installiert sind. MetaMask sollte als Browser-Erweiterung installiert und konfiguriert sein. Die Ports 5173, 5051 und 5052 sollten frei sein.
 
 2. **Repository clonen**
 
