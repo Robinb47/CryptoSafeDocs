@@ -10,7 +10,7 @@ const Passage = require("@passageidentity/passage-node");
 const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 
-// Generate an RSA key pair with a key size of 512 bits
+// Generate an RSA key pair with a key size of 3072 bits
 //const key = new NodeRSA({b: 3072});
 
 const app = express();
