@@ -11,7 +11,7 @@ const crypto = require('crypto');
 const NodeRSA = require('node-rsa');
 
 // Generate an RSA key pair with a key size of 512 bits
-const key = new NodeRSA({b: 512});
+//const key = new NodeRSA({b: 3072});
 
 const app = express();
 const port = 5052;
