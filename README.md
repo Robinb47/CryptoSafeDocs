@@ -10,7 +10,7 @@ Nutzer können sichere Schlüsselpaare generieren, verschlüsselte IPFS-Zugriffs
 
 ## Technologien
 
-- **Fronted:** ReactJS
+- **Frontend:** ReactJS
 - **Backend:** JavaScript (Node.js)
 - **Blockchain Interaktion:** Solidity Smart Contract, MetaMask Erweiterung
 - **Datenfreigabe:** InterPlanetary File System (IPFS)
@@ -28,7 +28,7 @@ cd <Zielverzeichnis>
 git clone https://github.com/Robinb47/CryptoSafeDocs.git
 ```
 
-3. **Abhängigkeiten installieren im Fronted:**
+3. **Abhängigkeiten installieren im Frontend:**
 
 ```bash
 cd CryptoSafeDocs/client/reactDapp
@@ -63,7 +63,7 @@ node index.js
 node keymanager.js
 ```
 
-2. **Starten des Fronteds**
+2. **Starten des Frontends**
 
 ```bash
 cd CryptoSafeDocs/client/reactDapp
