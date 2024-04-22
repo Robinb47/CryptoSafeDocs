@@ -70,4 +70,4 @@ cd CryptoSafeDocs/client/reactDapp
 npm run dev
 ```
 
-Das Fronted ist nun unter `http://localhost:5173/` erreichbar.
+Das Frontend ist nun unter `http://localhost:5173/` erreichbar.
